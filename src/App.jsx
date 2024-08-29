@@ -1,7 +1,9 @@
 import React from "react"
 import List from "./components/List"
 import { useState, useEffect } from "react";
-import { Toast } from "bootstrap";
+import { toast, ToastContainer } from "react-toastify";
+import ReactDOM from "react-dom";
+import 'react-toastify/dist/ReactToastify.css';
 
 
 function App() {
@@ -28,13 +30,21 @@ useEffect(() => {
     function addItem() {
       setIText(prev => {
         
-        if (prev.length > 9){
-          alert("Too many")
+        if (prev.length > 9 && lItem !== ""){
+          toast.warning("Max cap reached", {
+            autoClose: 3000,
+            pauseOnHover:true,
+            position: "top-center",
+          })
           return [...prev];
           setLItem("");
         }else{
           if (lItem === "" ){
-            alert("Field Empty");
+            toast.info("Field Empty", {
+              autoClose: 3000,
+              pauseOnHover:true,
+              position: "top-center",
+            })
             return [...prev];
             setLItem("");
           }
@@ -54,15 +64,27 @@ useEffect(() => {
         });
       });
     }
+
+
+    function handlekey(event){
+      if(event.keyCode === 13){
+        addItem();
+      }
+    }
+
   return (
+    <div>
     <div className="ListBody ">
     <h1>To-Do List</h1>
     <div>
-    <input className="inp" onChange={change} value={lItem} type="text" placeholder="add item"/> 
+    <input className="inp" onChange={change} onKeyDown={handlekey} value={lItem} type="text" placeholder="add item"/> 
     <button className="but" onClick={addItem}>
       <span>Add</span>
       </button>
-    </div>
+      <ToastContainer />
+    </div></div>
+    
+    <div className="list-container">
     <ul className="lest">
     {iText.map((todoItem, index) => (
             <List
@@ -73,6 +95,7 @@ useEffect(() => {
             />
           ))}
     </ul>
+    </div>
     </div>
   )
 
