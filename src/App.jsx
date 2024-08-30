@@ -1,9 +1,9 @@
 import React from "react"
 import List from "./components/List"
 import { useState, useEffect } from "react";
-import { toast, ToastContainer } from "react-toastify";
+
 import ReactDOM from "react-dom";
-import 'react-toastify/dist/ReactToastify.css';
+
 
 
 function App() {
@@ -31,7 +31,7 @@ useEffect(() => {
       setIText(prev => {
         
         if (prev.length > 9 && lItem !== ""){
-          toast.warning("Max cap reached", {
+          alert("Max cap reached", {
             autoClose: 3000,
             pauseOnHover:true,
             position: "top-center",
@@ -40,7 +40,7 @@ useEffect(() => {
           setLItem("");
         }else{
           if (lItem === "" ){
-            toast.info("Field Empty", {
+            alert("Field Empty", {
               autoClose: 3000,
               pauseOnHover:true,
               position: "top-center",
@@ -81,7 +81,7 @@ useEffect(() => {
     <button className="but" onClick={addItem}>
       <span>Add</span>
       </button>
-      <ToastContainer />
+     
     </div></div>
     
     <div className="list-container">
